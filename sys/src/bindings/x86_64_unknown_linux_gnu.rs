@@ -17515,10 +17515,14 @@ pub struct _cef_window_t {
     pub get_runtime_style: ::std::option::Option<
         unsafe extern "C" fn(self_: *mut _cef_window_t) -> cef_runtime_style_t,
     >,
+    #[doc = "\n AgentMux extension: begin a native interactive window move/drag.\n"]
+    pub begin_window_drag: ::std::option::Option<
+        unsafe extern "C" fn(self_: *mut _cef_window_t) -> ::std::os::raw::c_int,
+    >,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
-    ["Size of _cef_window_t"][::std::mem::size_of::<_cef_window_t>() - 888usize];
+    ["Size of _cef_window_t"][::std::mem::size_of::<_cef_window_t>() - 896usize];
     ["Alignment of _cef_window_t"][::std::mem::align_of::<_cef_window_t>() - 8usize];
     ["Offset of field: _cef_window_t::base"][::std::mem::offset_of!(_cef_window_t, base) - 0usize];
     ["Offset of field: _cef_window_t::show"]
