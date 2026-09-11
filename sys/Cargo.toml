@@ -1,7 +1,7 @@
 [package]
 name = "cef-dll-sys"
 description = "cef-rs sys crate"
-links = "cef_dll_wrapper"
+links = "cef_dll_wrapper_agentmux"
 
 version.workspace = true
 edition.workspace = true
