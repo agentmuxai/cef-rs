@@ -33909,9 +33909,7 @@ pub struct _cef_window_t {
     pub get_runtime_style: ::std::option::Option<
         unsafe extern "C" fn(self_: *mut _cef_window_t) -> cef_runtime_style_t,
     >,
-    #[doc = "
- AgentMux extension: begin a native interactive window move/drag.
-"]
+    #[doc = "\n AgentMux extension: begin a native interactive window move/drag.\n"]
     pub begin_window_drag: ::std::option::Option<
         unsafe extern "C" fn(self_: *mut _cef_window_t) -> ::std::os::raw::c_int,
     >,
@@ -34005,6 +34003,8 @@ const _: () = {
         [::std::mem::offset_of!(_cef_window_t, theme_changed) - 872usize];
     ["Offset of field: _cef_window_t::get_runtime_style"]
         [::std::mem::offset_of!(_cef_window_t, get_runtime_style) - 880usize];
+    ["Offset of field: _cef_window_t::begin_window_drag"]
+        [::std::mem::offset_of!(_cef_window_t, begin_window_drag) - 888usize];
 };
 #[doc = "\n A Window is a top-level Window/widget in the Views hierarchy. By default it\n will have a non-client area with title bar, icon and buttons that supports\n moving and resizing. All size and position values are in density independent\n pixels (DIP) unless otherwise indicated. Methods must be called on the\n browser process UI thread unless otherwise indicated.\n\n NOTE: This struct is allocated DLL-side.\n"]
 pub type cef_window_t = _cef_window_t;
