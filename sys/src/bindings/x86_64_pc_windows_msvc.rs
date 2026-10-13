@@ -24554,6 +24554,34 @@ const _: () = {
 };
 #[doc = "\n Callback structure for cef_request_context_t::ResolveHost.\n\n NOTE: This struct is allocated client-side.\n"]
 pub type cef_resolve_callback_t = _cef_resolve_callback_t;
+#[doc = "\n AgentMux extension (agentmuxai/cef#12): callback structure for\n cef_request_context_t::get_autocomplete_suggestions.\n\n NOTE: This struct is allocated client-side.\n"]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct _cef_autocomplete_callback_t {
+    #[doc = "\n Base structure.\n"]
+    pub base: cef_base_ref_counted_t,
+    #[doc = "\n Called on the UI thread each time the result set changes, best match\n first. |matches| is a list of dictionaries (contents, description,\n destination_url, fill_into_edit, inline_autocompletion, type, provider,\n relevance, allowed_to_be_default_match). |done| is true (1) for the final\n call.\n"]
+    pub on_autocomplete_result: ::std::option::Option<
+        unsafe extern "C" fn(
+            self_: *mut _cef_autocomplete_callback_t,
+            matches: *mut _cef_list_value_t,
+            done: ::std::os::raw::c_int,
+        ),
+    >,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of _cef_autocomplete_callback_t"]
+        [::std::mem::size_of::<_cef_autocomplete_callback_t>() - 48usize];
+    ["Alignment of _cef_autocomplete_callback_t"]
+        [::std::mem::align_of::<_cef_autocomplete_callback_t>() - 8usize];
+    ["Offset of field: _cef_autocomplete_callback_t::base"]
+        [::std::mem::offset_of!(_cef_autocomplete_callback_t, base) - 0usize];
+    ["Offset of field: _cef_autocomplete_callback_t::on_autocomplete_result"]
+        [::std::mem::offset_of!(_cef_autocomplete_callback_t, on_autocomplete_result) - 40usize];
+};
+#[doc = "\n AgentMux extension (agentmuxai/cef#12): callback structure for\n cef_request_context_t::get_autocomplete_suggestions.\n\n NOTE: This struct is allocated client-side.\n"]
+pub type cef_autocomplete_callback_t = _cef_autocomplete_callback_t;
 #[doc = "\n Implemented by the client to observe content and website setting changes and\n registered via cef_request_context_t::AddSettingObserver. The functions of\n this structure will be called on the browser process UI thread.\n\n NOTE: This struct is allocated client-side.\n"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -24744,10 +24772,18 @@ pub struct _cef_request_context_t {
             callback: *mut _cef_completion_callback_t,
         ),
     >,
+    #[doc = "\n AgentMux extension (agentmuxai/cef#12): runs the browser's address bar\n autocomplete for |text| in this context's profile. |callback| is executed\n on the UI thread each time the result set changes, ending with a call where\n |done| is true. Only present in a libcef built with that patch: check\n base.base.size before reading it.\n"]
+    pub get_autocomplete_suggestions: ::std::option::Option<
+        unsafe extern "C" fn(
+            self_: *mut _cef_request_context_t,
+            text: *const cef_string_t,
+            callback: *mut _cef_autocomplete_callback_t,
+        ),
+    >,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
-    ["Size of _cef_request_context_t"][::std::mem::size_of::<_cef_request_context_t>() - 272usize];
+    ["Size of _cef_request_context_t"][::std::mem::size_of::<_cef_request_context_t>() - 280usize];
     ["Alignment of _cef_request_context_t"]
         [::std::mem::align_of::<_cef_request_context_t>() - 8usize];
     ["Offset of field: _cef_request_context_t::base"]
@@ -24802,6 +24838,8 @@ const _: () = {
         [::std::mem::offset_of!(_cef_request_context_t, add_setting_observer) - 256usize];
     ["Offset of field: _cef_request_context_t::clear_http_cache"]
         [::std::mem::offset_of!(_cef_request_context_t, clear_http_cache) - 264usize];
+    ["Offset of field: _cef_request_context_t::get_autocomplete_suggestions"]
+        [::std::mem::offset_of!(_cef_request_context_t, get_autocomplete_suggestions) - 272usize];
 };
 #[doc = "\n A request context provides request handling for a set of related browser or\n URL request objects. A request context can be specified when creating a new\n browser via the cef_browser_host_t static factory functions or when creating\n a new URL request via the cef_urlrequest_t static factory functions. Browser\n objects with different request contexts will never be hosted in the same\n render process. Browser objects with the same request context may or may not\n be hosted in the same render process depending on the process model. Browser\n objects created indirectly via the JavaScript window.open function or\n targeted links will share the same render process and the same request\n context as the source browser. When running in single-process mode there is\n only a single render process (the main process) and so all browsers created\n in single-process mode will share the same request context. This will be the\n first request context passed into a cef_browser_host_t static factory\n function and all other request context objects will be ignored.\n\n NOTE: This struct is allocated DLL-side.\n"]
 pub type cef_request_context_t = _cef_request_context_t;
