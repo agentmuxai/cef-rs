@@ -25496,6 +25496,20 @@ pub struct _cef_browser_host_t {
     pub get_runtime_style: ::std::option::Option<
         unsafe extern "C" fn(self_: *mut _cef_browser_host_t) -> cef_runtime_style_t,
     >,
+    #[doc = "\n AgentMux extension (agentmuxai/cef, Discard API): discards the page to\n free its renderer, keeping the browser and its navigation history. Call\n load_if_necessary() to load it again. Returns false (0) if it can't be\n discarded now (the WebContentsDiscard feature is off, it is already\n discarded, or a navigation is about to commit). |callback| is optional.\n UI thread only. Only present in a libcef built with that patch: check\n that base.size reaches the end of load_if_necessary (608 bytes for\n a 15400 client) before reading it.\n"]
+    pub discard: ::std::option::Option<
+        unsafe extern "C" fn(
+            self_: *mut _cef_browser_host_t,
+            callback: *mut _cef_completion_callback_t,
+        ) -> ::std::os::raw::c_int,
+    >,
+    #[doc = "\n AgentMux extension: returns true (1) if the page was discarded and hasn't\n loaded again since. UI thread only. Check base.size first.\n"]
+    pub is_discarded: ::std::option::Option<
+        unsafe extern "C" fn(self_: *mut _cef_browser_host_t) -> ::std::os::raw::c_int,
+    >,
+    #[doc = "\n AgentMux extension: loads the current navigation entry again if the\n browser needs it (after discard()), as a history navigation, so the page\n gets back its saved state. UI thread only. Check base.size first.\n"]
+    pub load_if_necessary:
+        ::std::option::Option<unsafe extern "C" fn(self_: *mut _cef_browser_host_t)>,
     #[doc = "\n Enable or disable CDP accessibility tree viewport collapse for this\n browser. When enabled, off-screen landmarks and headings are serialized as\n summaries and other off-screen nodes are pruned. Overrides the\n cef_browser_tSettings.ax_viewport_collapse value. If called on the UI\n thread the change will be applied immediately. Otherwise, the change will\n be applied asynchronously on the UI thread. WARNING: This collapses the\n CDP accessibility tree and disables CDP dynamic tree updates (nodesUpdated\n events). The DevTools Accessibility panel will show an incomplete tree.\n Platform screen readers (NVDA, JAWS, VoiceOver) are unaffected - they use\n a separate code path.\n"]
     pub set_ax_viewport_collapse: ::std::option::Option<
         unsafe extern "C" fn(self_: *mut _cef_browser_host_t, enabled: ::std::os::raw::c_int),
@@ -25503,7 +25517,7 @@ pub struct _cef_browser_host_t {
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
-    ["Size of _cef_browser_host_t"][::std::mem::size_of::<_cef_browser_host_t>() - 592usize];
+    ["Size of _cef_browser_host_t"][::std::mem::size_of::<_cef_browser_host_t>() - 616usize];
     ["Alignment of _cef_browser_host_t"][::std::mem::align_of::<_cef_browser_host_t>() - 8usize];
     ["Offset of field: _cef_browser_host_t::base"]
         [::std::mem::offset_of!(_cef_browser_host_t, base) - 0usize];
@@ -25644,7 +25658,13 @@ const _: () = {
     ["Offset of field: _cef_browser_host_t::get_runtime_style"]
         [::std::mem::offset_of!(_cef_browser_host_t, get_runtime_style) - 576usize];
     ["Offset of field: _cef_browser_host_t::set_ax_viewport_collapse"]
-        [::std::mem::offset_of!(_cef_browser_host_t, set_ax_viewport_collapse) - 584usize];
+        [::std::mem::offset_of!(_cef_browser_host_t, set_ax_viewport_collapse) - 608usize];
+    ["Offset of field: _cef_browser_host_t::discard"]
+        [::std::mem::offset_of!(_cef_browser_host_t, discard) - 584usize];
+    ["Offset of field: _cef_browser_host_t::is_discarded"]
+        [::std::mem::offset_of!(_cef_browser_host_t, is_discarded) - 592usize];
+    ["Offset of field: _cef_browser_host_t::load_if_necessary"]
+        [::std::mem::offset_of!(_cef_browser_host_t, load_if_necessary) - 600usize];
 };
 #[doc = "\n Structure used to represent the browser process aspects of a browser. The\n functions of this structure can only be called in the browser process. They\n may be called on any thread in that process unless otherwise indicated in\n the comments.\n\n NOTE: This struct is allocated DLL-side.\n"]
 pub type cef_browser_host_t = _cef_browser_host_t;
