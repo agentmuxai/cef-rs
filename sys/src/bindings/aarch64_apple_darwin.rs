@@ -33650,11 +33650,19 @@ pub struct _cef_overlay_controller_t {
     pub is_drawn: ::std::option::Option<
         unsafe extern "C" fn(self_: *mut _cef_overlay_controller_t) -> ::std::os::raw::c_int,
     >,
+    #[doc = "\n Limits what is shown of this overlay, and where it receives input, to the\n union of |rects|. The rectangles are in the overlay's own coordinates (DIP, origin at its\n top-left) and may overlap. Content outside them is neither drawn nor hit-tested, so\n mouse and touch input falls through to what is behind the overlay. Rectangles with no\n area are ignored; if every one of them is, nothing of the overlay is shown. Call with an\n empty vector to remove the clip. The rectangles are not adjusted when the overlay is\n resized or the display scale changes: send them again. Currently implemented on Aura\n platforms (Windows, Linux) and ignored elsewhere.\n\n NOTE: This function is an AgentMux CEF source patch (added=15600). It is only in\n libcef builds that carry it: check base.size before reading it.\n"]
+    pub set_clip_rects: ::std::option::Option<
+        unsafe extern "C" fn(
+            self_: *mut _cef_overlay_controller_t,
+            rectsCount: usize,
+            rects: *const cef_rect_t,
+        ),
+    >,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
     ["Size of _cef_overlay_controller_t"]
-        [::std::mem::size_of::<_cef_overlay_controller_t>() - 192usize];
+        [::std::mem::size_of::<_cef_overlay_controller_t>() - 200usize];
     ["Alignment of _cef_overlay_controller_t"]
         [::std::mem::align_of::<_cef_overlay_controller_t>() - 8usize];
     ["Offset of field: _cef_overlay_controller_t::base"]
@@ -33697,6 +33705,8 @@ const _: () = {
         [::std::mem::offset_of!(_cef_overlay_controller_t, is_visible) - 176usize];
     ["Offset of field: _cef_overlay_controller_t::is_drawn"]
         [::std::mem::offset_of!(_cef_overlay_controller_t, is_drawn) - 184usize];
+    ["Offset of field: _cef_overlay_controller_t::set_clip_rects"]
+        [::std::mem::offset_of!(_cef_overlay_controller_t, set_clip_rects) - 192usize];
 };
 #[doc = "\n Controller for an overlay that contains a contents View added via\n cef_window_t::AddOverlayView. Methods exposed by this controller should be\n called in preference to functions of the same name exposed by the contents\n View unless otherwise indicated. Methods must be called on the browser\n process UI thread unless otherwise indicated.\n\n NOTE: This struct is allocated DLL-side.\n"]
 pub type cef_overlay_controller_t = _cef_overlay_controller_t;
